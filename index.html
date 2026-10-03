@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library Management System | Kunal Mahajan – Portfolio</title>
+<meta name="description" content="Portfolio case study: a Library Management System for books, members, issue/return and fines.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--green:#123524;--green2:#1c4a34;--paper:#0d1912;--alt:#112219;--card:#17291f;--ink:#e9f0ea;--lamp:#e8a838;--mute:#9db2a5;--line:#2a4336}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:'Instrument Sans',system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+h1,h2,h3,.brand{font-family:'Young Serif',Georgia,serif;font-weight:400}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--lamp);outline-offset:3px}
+.navbar{background:rgba(9,20,14,.9);backdrop-filter:blur(6px)}
+.navbar .nav-link{color:#dbe7df}.navbar .nav-link:hover{color:var(--lamp)}
+.brand{color:#fff;font-size:1.25rem}
+.btn-lamp{background:var(--lamp);color:#1b1b1b;font-weight:600;border:0;padding:.75rem 1.5rem;border-radius:.5rem}
+.btn-lamp:hover{background:#f2b94d;color:#1b1b1b}
+.btn-ghost{border:1.5px solid #9fb8a9;color:#fff;padding:.75rem 1.5rem;border-radius:.5rem}
+.btn-ghost:hover{background:#fff;color:var(--green)}
+
+/* Hero */
+.hero{background:radial-gradient(circle at 85% 15%,#24654a 0,#14392a 40%,#0a1a12 100%);color:#fff;padding:7rem 0 5rem;overflow:hidden}
+.hero h1{font-size:clamp(2.4rem,5.5vw,4.2rem);line-height:1.08}
+.hero p.lead{color:#cfe0d6;max-width:34rem}
+.load>*{opacity:0;transform:translateY(18px);animation:in .7s ease forwards}
+.load>*:nth-child(2){animation-delay:.12s}.load>*:nth-child(3){animation-delay:.24s}.load>*:nth-child(4){animation-delay:.36s}
+@keyframes in{to{opacity:1;transform:none}}
+
+/* Hero card */
+.scene{position:relative;max-width:400px;margin:auto;padding:1.5rem}
+.card3d{position:relative;background-color:#f0cf8c;color:#2b2210;border-radius:14px;padding:1.5rem;box-shadow:0 24px 60px rgba(232,168,56,.25),0 24px 50px rgba(0,0,0,.45);animation:float 5s ease-in-out infinite;background-image:repeating-linear-gradient(transparent 0 31px,rgba(80,55,10,.18) 31px 32px);background-position:0 96px}
+.card3d p{margin:0;line-height:32px;font-size:.95rem}
+.tag{font-size:.8rem;color:var(--mute)}.card3d .tag{color:#6b5320}.card3d .brand{color:#2b2210}
+.stamp{background:rgba(240,207,140,.6);position:absolute;right:1.2rem;top:1.2rem;border:2px solid #b3261e;color:#b3261e;font-weight:700;padding:.1rem .6rem;border-radius:6px;transform:rotate(-10deg) scale(3);opacity:0;animation:stamp .5s 1.2s cubic-bezier(.2,1.4,.4,1) forwards}
+.bk{position:absolute;font-size:2rem;opacity:.9;animation:drift 6s ease-in-out infinite}
+.b1{left:-4px;top:0}.b2{right:0;bottom:-6px;animation-delay:-2s}.b3{left:30px;bottom:-14px;animation-delay:-4s}
+@keyframes float{50%{transform:translateY(-14px) rotate(1deg)}}
+@keyframes drift{50%{transform:translate(8px,-16px) rotate(12deg)}}
+@keyframes stamp{to{transform:rotate(-10deg) scale(1);opacity:1}}
+.progress-bar-top{position:fixed;top:0;left:0;height:3px;width:0;background:var(--lamp);z-index:2000}
+.navbar{transition:padding .3s,box-shadow .3s}.navbar.small{padding-top:.2rem;padding-bottom:.2rem;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.show{opacity:1;transform:none}
+.btn-lamp,.btn-ghost{transition:transform .2s,box-shadow .2s,background .2s}
+.btn-lamp:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(232,168,56,.4)}
+.btn-lamp:active{transform:scale(.97)}
+
+/* Sections */
+section{padding:5rem 0}
+.sec-title{font-size:clamp(1.8rem,3.5vw,2.5rem);margin-bottom:.75rem}
+.sub{color:var(--mute);max-width:36rem}
+.fact{transition:transform .3s}.fact:hover{transform:translateX(6px)}
+.fact{border-left:3px solid var(--lamp);padding-left:1rem}
+.fact b{display:block;font-family:'Young Serif',serif;font-size:1.6rem;font-weight:400}
+
+/* Feature cards */
+.fcard{height:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;transition:transform .3s,box-shadow .3s,border-color .3s}
+.fcard:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(232,168,56,.14);border-color:var(--lamp)}
+.fcard .ic{width:46px;height:46px;border-radius:10px;background:var(--green);color:var(--lamp);display:grid;place-items:center;font-size:1.4rem;margin-bottom:1rem;transition:transform .4s}
+.fcard:hover .ic{transform:rotate(-8deg) scale(1.15)}
+.fcard h3{font-size:1.2rem}
+
+/* Catalog demo */
+.demo{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.5rem}
+.book{animation:slide .4s ease both;display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.book:last-child{border:0}
+.book small{color:var(--mute)}
+@keyframes slide{from{opacity:0;transform:translateX(-16px)}}
+@keyframes pop{50%{transform:scale(1.25)}}
+.pill.pop{animation:pop .4s}
+.pill{font-size:.78rem;padding:.2rem .65rem;border-radius:99px;font-weight:600}
+.ok{background:rgba(74,200,130,.15);color:#6fe0a0}.out{background:rgba(232,168,56,.15);color:#f2b94d}
+.book button{border:0;background:transparent;font-weight:600;color:var(--lamp);padding:.2rem .5rem}
+.book button:hover{text-decoration:underline}.book button:disabled{color:var(--mute);opacity:.5;text-decoration:none}
+
+/* Workflow (real sequence) */
+.steps{list-style:none;padding:0;margin:0;position:relative}
+.steps:before{content:"";position:absolute;left:19px;top:6px;bottom:6px;width:2px;background:var(--lamp);transform-origin:top;transform:scaleY(var(--draw,0));transition:transform .2s linear}
+.steps li:hover span{transform:scale(1.15)}
+.steps li{position:relative;padding:0 0 1.6rem 3.4rem}
+.steps li span{transition:transform .4s;position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;background:var(--card);border:2px solid var(--lamp);color:var(--lamp);display:grid;place-items:center;font-weight:600}
+.steps h3{font-size:1.1rem;margin-bottom:.2rem}
+.steps p{color:var(--mute);margin:0}
+
+/* Stack */
+.chip{display:inline-block;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:.45rem 1rem;margin:.25rem;font-weight:500;transition:transform .2s,border-color .2s}
+.chip:hover{transform:translateY(-3px);border-color:var(--lamp);color:var(--lamp)}
+
+/* Contact / footer */
+.contact{background:radial-gradient(circle at 15% 85%,#24654a 0,#14392a 40%,#0a1a12 100%);color:#fff}
+.form-control{background:#0b150f;border:1px solid var(--line);color:var(--ink);border-radius:.5rem;padding:.75rem 1rem}.form-control::placeholder{color:#7f9588}.form-control:focus{background:#0b150f;color:var(--ink);border-color:var(--lamp);box-shadow:0 0 0 .2rem rgba(232,168,56,.2)}.text-secondary{color:var(--mute)!important}
+footer{background:#07110c;color:#9fb8a9;padding:1.5rem 0;font-size:.9rem}
+footer a{color:var(--lamp)}
+
+@media (prefers-reduced-motion:reduce){
+ *{animation:none!important;transition:none!important}
+ .load>*{opacity:1;transform:none}
+ html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar-top" id="bar"></div>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+ <div class="container">
+  <a class="navbar-brand brand" href="#home">Kunal Mahajan</a>
+  <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle menu"><span class="navbar-toggler-icon"></span></button>
+  <div class="collapse navbar-collapse" id="nav">
+   <ul class="navbar-nav ms-auto">
+    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+    <li class="nav-item"><a class="nav-link" href="#demo">Demo</a></li>
+    <li class="nav-item"><a class="nav-link" href="#workflow">Workflow</a></li>
+    <li class="nav-item"><a class="nav-link" href="#stack">Tech stack</a></li>
+    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+   </ul>
+  </div>
+ </div>
+</nav>
+
+<header class="hero" id="home">
+ <div class="container">
+  <div class="row align-items-center g-5">
+   <div class="col-lg-7 load">
+    <p class="mb-2" style="color:var(--lamp)">Portfolio project by Kunal Mahajan</p>
+    <h1>Library Management System</h1>
+    <p class="lead my-4">A web app that lets librarians catalogue books, register members, issue and return copies, and calculate fines without paperwork.</p>
+    <div class="d-flex flex-wrap gap-3">
+     <a href="#demo" class="btn btn-lamp">Try the catalog demo</a>
+     <a href="#features" class="btn btn-ghost">See features</a>
+    </div>
+   </div>
+   <div class="col-lg-5">
+    <div class="scene">
+     <div class="card3d">
+      <span class="stamp">Issued</span>
+      <strong class="brand" style="font-size:1.15rem">Library Card</strong>
+      <div class="tag mb-3">Member ID LMS-2041</div>
+      <p>Name: Kunal Mahajan</p><p>Books issued: 2 of 5</p><p>Due back: 14 days</p>
+     </div>
+     <span class="bk b1">&#128214;</span><span class="bk b2">&#128215;</span><span class="bk b3">&#128216;</span>
+    </div>
+   </div>
+  </div>
+ </div>
+</header>
+
+<section id="about">
+ <div class="container">
+  <div class="row g-5">
+   <div class="col-lg-6">
+    <h2 class="sec-title reveal">The problem it solves</h2>
+    <p class="sub">Many small libraries still track books in registers. Finding a title, checking who has it, or working out a late fine takes time and leads to mistakes.</p>
+    <p class="sub">This system keeps one searchable record of books and members, and handles lending from start to finish.</p>
+   </div>
+   <div class="col-lg-6">
+    <div class="row g-4">
+     <div class="col-6"><div class="fact reveal"><b><span data-count="2">2</span> roles</b>Admin and member</div></div>
+     <div class="col-6"><div class="fact reveal"><b><span data-count="6">6</span> modules</b>Books, members, issue, return, fines, reports</div></div>
+     <div class="col-6"><div class="fact reveal"><b>Responsive</b>Works on phone, tablet and desktop</div></div>
+     <div class="col-6"><div class="fact reveal"><b>Your result</b>Add your own numbers here</div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="features" style="background:var(--alt)">
+ <div class="container">
+  <h2 class="sec-title reveal">Features</h2>
+  <p class="sub mb-5">Six modules that cover everything a library needs.</p>
+  <div class="row g-4">
+   <!-- repeat pattern -->
+   <div class="col-md-6 col-lg-4"><div class="fcard reveal"><div class="ic">&#128218;</div><h3>Book catalog</h3><p class="fs-6 mb-2" style="color:var(--lamp)">Add, edit and search books.</p><p class="mb-0 text-secondary">Find a book by title, author, ISBN or category. See copies available at a glance.</p></div></div>
+   <div class="col-md-6 col-lg-4"><div class="fcard reveal"><div class="ic">&#128100;</div><h3>Member management</h3><p class="fs-6 mb-2" style="color:var(--lamp)">Register and manage readers.</p><p class="mb-0 text-secondary">Each member gets an ID, borrowing limit and full history of past loans.</p></div></div>
+   <div class="col-md-6 col-lg-4"><div class="fcard reveal"><div class="ic">&#128197;</div><h3>Issue and return</h3><p class="fs-6 mb-2" style="color:var(--lamp)">Lend books in a few clicks.</p><p class="mb-0 text-secondary">Issuing sets the due date and lowers the available count. Returning restores it.</p></div></div>
+   <div class="col-md-6 col-lg-4"><div class="fcard reveal"><div class="ic">&#9203;</div><h3>Fine calculation</h3><p class="fs-6 mb-2" style="color:var(--lamp)">Late fees without a calculator.</p><p class="mb-0 text-secondary">Fines are calculated per day late at the rate the admin sets.</p></div></div>
+   <div class="col-md-6 col-lg-4"><div class="fcard reveal"><div class="ic">&#128202;</div><h3>Reports</h3><p class="fs-6 mb-2" style="color:var(--lamp)">See what is popular and overdue.</p><p class="mb-0 text-secondary">View most borrowed titles, overdue lists and monthly activity.</p></div></div>
+   <div class="col-md-6 col-lg-4"><div class="fcard reveal"><div class="ic">&#128274;</div><h3>Secure login</h3><p class="fs-6 mb-2" style="color:var(--lamp)">Separate admin and member access.</p><p class="mb-0 text-secondary">Only admins can change records. Members can search and view their own loans.</p></div></div>
+  </div>
+ </div>
+</section>
+
+<section id="demo">
+ <div class="container">
+  <div class="row g-5 align-items-start">
+   <div class="col-lg-5">
+    <h2 class="sec-title reveal">Try the catalog</h2>
+    <p class="sub">A small working sample of the issue and return logic. Search for a book, then issue or return it.</p>
+   </div>
+   <div class="col-lg-7">
+    <div class="demo reveal">
+     <label for="q" class="visually-hidden">Search books</label>
+     <input id="q" class="form-control mb-3" placeholder="Search by title or author">
+     <div id="list"></div>
+     <p id="msg" class="mt-3 mb-0 small text-secondary" role="status" aria-live="polite">Select Issue to lend a book.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="workflow" style="background:var(--alt)">
+ <div class="container">
+  <div class="row g-5">
+   <div class="col-lg-5">
+    <h2 class="sec-title reveal">How a loan works</h2>
+    <p class="sub">From search to return, in the order a librarian does it.</p>
+   </div>
+   <div class="col-lg-7">
+    <ol class="steps">
+     <li class="reveal"><span>1</span><h3>Find the book</h3><p>Search the catalog and check that a copy is available.</p></li>
+     <li class="reveal"><span>2</span><h3>Pick the member</h3><p>Look up the member and check their borrowing limit.</p></li>
+     <li class="reveal"><span>3</span><h3>Issue the book</h3><p>The system records the date and sets the due date.</p></li>
+     <li class="reveal"><span>4</span><h3>Return the book</h3><p>The copy goes back to the shelf count.</p></li>
+     <li class="reveal"><span>5</span><h3>Collect any fine</h3><p>Late returns are charged by the day.</p></li>
+    </ol>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="stack">
+ <div class="container text-center">
+  <h2 class="sec-title reveal">Tech stack</h2>
+  <p class="sub mx-auto mb-4">Tools used to build and design the project.</p>
+  <span class="chip reveal">HTML5</span><span class="chip reveal">CSS3</span><span class="chip reveal">Bootstrap 5</span><span class="chip reveal">JavaScript</span>
+  <span class="chip reveal">UI/UX design</span><span class="chip reveal">CSS animations</span><span class="chip reveal">Add your backend (PHP / Node / Java)</span><span class="chip reveal">Add your database (MySQL)</span>
+ </div>
+</section>
+
+<section class="contact" id="contact">
+ <div class="container">
+  <div class="row g-5">
+   <div class="col-lg-5">
+    <h2 class="sec-title reveal">Let's talk</h2>
+    <p style="color:#cfe0d6">Want to see the full project or work together? Send a message.</p>
+    <p class="mb-1">Email: <a href="mailto:you@example.com" style="color:var(--lamp)">you@example.com</a></p>
+    <p>GitHub: <a href="https://github.com/yourname" style="color:var(--lamp)">github.com/yourname</a></p>
+   </div>
+   <div class="col-lg-7">
+    <form action="mailto:you@example.com" method="post" enctype="text/plain" class="row g-3">
+     <div class="col-md-6"><label class="visually-hidden" for="n">Name</label><input id="n" name="name" class="form-control" placeholder="Your name" required></div>
+     <div class="col-md-6"><label class="visually-hidden" for="e">Email</label><input id="e" type="email" name="email" class="form-control" placeholder="Your email" required></div>
+     <div class="col-12"><label class="visually-hidden" for="m">Message</label><textarea id="m" name="message" rows="4" class="form-control" placeholder="Your message" required></textarea></div>
+     <div class="col-12"><button class="btn btn-lamp">Send message</button></div>
+    </form>
+   </div>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="container d-flex flex-wrap justify-content-between gap-2">
+  <span>&copy; 2026 Kunal Mahajan. All rights reserved.</span>
+  <a href="#home">Back to top</a>
+ </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Scroll reveal with stagger
+var io=new IntersectionObserver(function(es){es.forEach(function(e){
+ if(e.isIntersecting){var sib=Array.prototype.indexOf.call(e.target.parentNode.children,e.target);
+  e.target.style.transitionDelay=(Math.min(sib,5)*90)+'ms';e.target.classList.add('show');
+  var c=e.target.querySelector('[data-count]');if(c&&!reduce)count(c);io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el){reduce?el.classList.add('show'):io.observe(el)});
+function count(el){var t=+el.dataset.count,i=0;var id=setInterval(function(){i++;el.textContent=i;if(i>=t)clearInterval(id)},180)}
+// Scroll progress, navbar shrink, timeline line
+var nav=document.querySelector('.navbar'),bar=document.getElementById('bar'),st=document.querySelector('.steps');
+function onScroll(){
+ var h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+ bar.style.width=(p*100)+'%';nav.classList.toggle('small',h.scrollTop>40);
+ if(st){var r=st.getBoundingClientRect(),v=(innerHeight*.7-r.top)/r.height;st.style.setProperty('--draw',Math.max(0,Math.min(1,v)))}
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// Catalog demo
+var books=[
+ {t:'Wings of Fire',a:'A. P. J. Abdul Kalam',c:2},
+ {t:'The Alchemist',a:'Paulo Coelho',c:1},
+ {t:'Clean Code',a:'Robert C. Martin',c:0},
+ {t:'Godaan',a:'Munshi Premchand',c:3},
+ {t:'Database System Concepts',a:'Silberschatz',c:1}
+];
+var list=document.getElementById('list'),q=document.getElementById('q'),msg=document.getElementById('msg');
+function esc(s){return s.replace(/[&<>"]/g,function(x){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
+function render(){
+ var s=q.value.toLowerCase(),h='';
+ books.forEach(function(b,i){
+  if((b.t+' '+b.a).toLowerCase().indexOf(s)<0)return;
+  h+='<div class="book"><div><strong>'+esc(b.t)+'</strong><br><small>'+esc(b.a)+'</small></div><div class="d-flex align-items-center gap-2">'
+   +'<span class="pill '+(b.c?'ok':'out')+'">'+(b.c?b.c+' available':'All issued')+'</span>'
+   +'<button data-i="'+i+'" data-a="issue"'+(b.c?'':' disabled')+'>Issue</button>'
+   +'<button data-i="'+i+'" data-a="return">Return</button></div></div>';
+ });
+ list.innerHTML=h||'<p class="text-secondary mb-0">No books match. Try another title or author.</p>';
+}
+list.addEventListener('click',function(e){
+ var b=e.target.closest('button');if(!b)return;
+ var bk=books[b.dataset.i];window._last=b.dataset.i;
+ if(b.dataset.a==='issue'&&bk.c>0){bk.c--;msg.textContent='Issued "'+bk.t+'". Due in 14 days.'}
+ else if(b.dataset.a==='return'){bk.c++;msg.textContent='Returned "'+bk.t+'". Copy is back on the shelf.'}
+ render();
+ if(window._last!=null){var p=list.querySelectorAll('.book')[Array.prototype.findIndex.call(list.querySelectorAll('[data-a=issue]'),function(x){return x.dataset.i==window._last})];if(p){var pl=p.querySelector('.pill');pl.classList.add('pop')}}
+});
+q.addEventListener('input',render);render();
+</script>
+</body>
+</html>
